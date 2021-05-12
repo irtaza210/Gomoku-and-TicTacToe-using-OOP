@@ -1,3 +1,4 @@
+A program that allows users to play the popular board games Gomoku and Tic-Tac-Toe and is built using Object Oriented Programming concepts such as inheritcance, polymorphism, refactoring and specializing in C++
 =======================================================
 This is a project I did with my friends Aaron Stein and Rain Chen
 
