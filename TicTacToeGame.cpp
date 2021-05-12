@@ -42,9 +42,6 @@ ostream& operator<<(ostream& os, const TicTacToeGame& game) {
 }
 
 
-// instruction #11 says "insert into an ostream", so should this be more general? 
-//Rain: It should be ok and instruction said that "define it as simply inserting *this into an ostream (so that it uses the insertion operator described above)"
-//      As long as we use the insertion operator. 
 void TicTacToeGame::print() {
 	cout << *this;
 }
