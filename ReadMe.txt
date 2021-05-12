@@ -1,25 +1,6 @@
 =======================================================
+This is a project I did with my friends Aaron Stein and Rain Chen
 
-Authors: Aaron Stein, Irtaza Waseem, Rain Chen
-CSE 332S
-Lab 4
- 
-Note: Our group was granted an extension, so Lab 4 was due on April 11.
-
-=======================================================
-All three of us have about 2 hours meeting twice a week together for this Lab4 for debugging and testing codes. However, 
-there were some specific things each person did: 
-
-Aaron Stein: Came up with logic for extensible versions of done() and draw() methods. Work on keeping whole implementation extensible and flexible. 
-The majority of the code came from Aaron’s Lab 3, but we all contributed to refactoring it in sessions together.
-
-Irtaza Waseem: Work on having the board be properly formatted for bigger dimensions and make sure the code worked in all possible scenarios. 
-Work on debugging done() and draw() methods.
-
-Rain Chen: Work on refactoring the code for Gomoku, so Gomoku can work in the bigger boards. Work on debugging done() and draw() methods.
-
-
-*******************************************************
 Overview:
 
 This program allows 2 users to play tic-tac-toe or gomoku with one another. The game starts by printing out the initial board, which includes
@@ -36,7 +17,7 @@ For clarification, a single "turn" here is defined as a single players move, not
 then O, then X again, then O again, that counts as a total of 4 turns, not 2. Therefore, for 3x3 Tic tac Toe, the maximum number of turns is 9. For 19x19
 gomoku, the maximum number of turns is 361.
 
-It is not explicitly stated in the instructions, so this program makes it so X (B in gomoku) always takes the first turn.
+X (B in gomoku) always takes the first turn.
 
 There is GameBase class as the base class of tic-tac-toe and gomoku. It has print(), turn(), and draw() as pure virtual functions so tic-tac-toe and 
 gomoku can override those functions. 
@@ -60,10 +41,6 @@ Possible Return Values from main():
 3 -- Improper usage of program (badly formed input command line)
 4 -- Indicates that the program ran out of memory
 
-Note: As stated in Piazza post @326, we can use the same error return value for all issues relating to a badly formed command line.
-Thus, error enumeration 3 can indicate any number of errors that had to do with the command line. These include wrong number of command
-line arguments (must be 2, 3, or 4) and extra credit arguments (the third and fourth optional inputs to the command line) that are illogical 
-(for example, having a winThreshold that is greater than the dimensions of the board).
 
 *******************************************************
 Enumerations:
@@ -73,13 +50,13 @@ In mainHeader.h
 "programName": enumerated as 0, used to index name of program within argv[]
 "whatGame": enumerated as 1, used to index name of game within argv[]
 "numExpectedCommandArgs": enumerated as 2, used to check that argc is correct for a given command line input
-“expectedArgsWithDimensions”: enumerated as 3, indicates that the user has passed in 3 command line arguments (part of extra credit)
-“expectedArgsWithDimensionsAndWinthresh”: enumerated as 4, used to check if user input 2 extra command line arguments, one for dimension and one for winThreshold (part of extra credit)
+â€œexpectedArgsWithDimensionsâ€: enumerated as 3, indicates that the user has passed in 3 command line arguments (part of extra credit)
+â€œexpectedArgsWithDimensionsAndWinthreshâ€: enumerated as 4, used to check if user input 2 extra command line arguments, one for dimension and one for winThreshold (part of extra credit)
 "success": enumerated as 0, used to check if the method returned successfully
 "quitGame": enumerated as 1, used to check whether user quit the game
 "draw": enumerated as 2, used to check if the game final output is a draw or not
 "improperUsage": enumerated as 3, used to check if the user follow the format of the command line argument
-“insufficientMemory”: enumerated as 4, indicates that the program ran out of memory when allocating in the heap
+â€œinsufficientMemoryâ€: enumerated as 4, indicates that the program ran out of memory when allocating in the heap
 
 In GameBase.h
 -------------------------------------------------------
@@ -108,7 +85,7 @@ the derived classes of GameBase.
  
 One particular design choice was the creation of the gameSpace struct, which is declared in gameSpace.h and defined in gameSpace.cpp. The declaration
 and definition are very simple, but it helps achieve some useful abstraction in the code. Instead of the board being composed of some collection of 
-X's, O's, B’s, W’s, and spaces, the gameSpace struct has a "shape" field that represents how the piece appears on the board. Thus, each space has and 
+X's, O's, Bâ€™s, Wâ€™s, and spaces, the gameSpace struct has a "shape" field that represents how the piece appears on the board. Thus, each space has and 
 remembers its own "state", which is a useful way of thinking about the board instead of each space simply being a character or string. The gameSpace 
 struct also keeps track of if that particular space can lead to win (used for implementing draw() method in GomokuGame()). 
  
@@ -142,12 +119,12 @@ is used on the command line (so that any letter in "tictactoe" can be upper or l
 the "quit" command from the user is also not case-sensitive).
  
 The only method that is associated with the gameSpace struct is a simple constructor that initializes every gameSpace object's shape on the board to be a 
-single space and makes the couldWin field of every gameSpace “true.”
+single space and makes the couldWin field of every gameSpace â€œtrue.â€
  
 The GameBase class has a constructor that takes in two unsigned integers, the first decides the dimensions of the board, and the second decides the
 winThreshold (or number in-a-row needed to win the game). The constructors for TicTacToeGame and GomokuGame each call this constructor for the base class 
 differently depending on what the desired board is. This constructor is also what initializes whose turn it is when the game starts, which is set to be
-X's turn first in TicTacToe and B’s turn first in Gomoku.
+X's turn first in TicTacToe and Bâ€™s turn first in Gomoku.
  
 Within utilityFunctions.cpp, there are two methods called drawOutcome() and quitOutcome(). These are called by GameBase::play() whenever 
 appropriate in order to print out the right message to the user with all the information specified in the instructions. These methods were created just to support
@@ -170,7 +147,7 @@ The GomokuGame class contains another three methods that serve to maintain the c
 and updateSpacePotential(). As explained in comments in the code, these methods are used to check whether or not a single space could lead to a win, and update the 
 couldWin within each struct accordingly.
 
-Technical note: If a piece has been placed on a space, then that space’s couldWin is true if that particular space could lead to a win (it has enough adjacent 
+Technical note: If a piece has been placed on a space, then that spaceâ€™s couldWin is true if that particular space could lead to a win (it has enough adjacent 
 blank spaces or spaces of the same player next to it so that it could reach the winThreshold). The couldWin of a blank space is defined somewhat differently. 
 The couldWin of a space is only true if that space has enough blank spaces adjacent to it to lead to a win. The difference is that couldWin of a space takes into
 account blank spaces, but the couldWin of a blank space ONLY counts other blank spaces when calculating if it is possible for that space to lead to a win.
@@ -190,7 +167,7 @@ The same reasoning above applies to the "quit" command. Extra whitespace is tole
 For example, "quit                  " causes the game to quit, but "quit               extra123" is regarded as invalid input.
  
 By using the lowerCaser() method, this program is able to tolerate upper case letters, both in the "quit" command and in the second argument of the command line.
-Therefore, if the case of any character within "TicTacToe" and “Gomoku” is wrong, or the case of any character in "quit" is wrong, they are still recognized as their
+Therefore, if the case of any character within "TicTacToe" and â€œGomokuâ€ is wrong, or the case of any character in "quit" is wrong, they are still recognized as their
 respective proper inputs.
  
 Pressing the "enter" key is regarded as an invalid input and causes the program to ask for another input.
@@ -234,7 +211,7 @@ simpler since it gives access to the most recent move made.
 The GameBase class also has a protected member variable of type "whoseTurn" which is an enumerated variable that can either be firstPlayer or secondPlayer. This member
 variable keeps track of whose turn it currently is. The play() method switches whose turn it is at the end of every turn.
 
-For the draw() method in Gomoku.h we designed it as a smart draw method which means it will call a draw if there’s no possibility for both B or W to win in
+For the draw() method in Gomoku.h we designed it as a smart draw method which means it will call a draw if thereâ€™s no possibility for both B or W to win in
 the game even if there are still remaining moves for B or W. We tested it as a 6 by 6 board since it is hard to test the draw case in the 19 by 19 board.
 See the extra credit section of this ReadMe for testing examples.
 
@@ -402,7 +379,7 @@ Enter here:
 
 Coordinates are rejected and user is prompted for coordinates again, Test 6 passes.
 
-Test 7: Two correct coordinates are input but they’re input in the same turn
+Test 7: Two correct coordinates are input but theyâ€™re input in the same turn
 H:\cse332\lab4\Lab4\Debug>Lab4.exe TicTacToe
 
 4
@@ -566,7 +543,6 @@ echo %errorlevel% returned 1 for these tests, as expected.
 
 *******************************************************
 
-Extra Credit:
 
 Updating constructors:
 The constructor of GameBase class takes in 2 parameters, the first determines the size of the board, and the second determines the winThreshold. The 
