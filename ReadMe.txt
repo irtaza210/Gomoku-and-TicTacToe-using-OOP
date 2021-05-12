@@ -1,6 +1,8 @@
 =======================================================
 This is a project I did with my friends Aaron Stein and Rain Chen
 
+Authors: Irtaza Waseem, Aaron Stein, Rain Chen
+
 Overview:
 
 This program allows 2 users to play tic-tac-toe or gomoku with one another. The game starts by printing out the initial board, which includes
